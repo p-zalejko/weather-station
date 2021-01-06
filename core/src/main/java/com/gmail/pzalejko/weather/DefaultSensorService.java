@@ -28,7 +28,7 @@ class DefaultSensorService implements SensorService {
 
     @Override
     public void start() {
-        executorService.schedule(this::process, checkInterval, TimeUnit.SECONDS);
+        executorService.scheduleAtFixedRate(this::process, checkInterval, checkInterval, TimeUnit.SECONDS);
     }
 
     @Override
