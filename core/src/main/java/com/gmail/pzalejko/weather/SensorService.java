@@ -1,10 +1,8 @@
 package com.gmail.pzalejko.weather;
 
+import java.util.List;
+
 public interface SensorService {
 
-    void start();
-
-    void stop();
-
-    void addListener(SensorListener sensorListener);
+    List<Sensor> getSensors();
 }
