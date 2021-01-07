@@ -13,12 +13,11 @@ class DefaultSensorService implements SensorService {
 
     private static final Logger LOG = LoggerFactory.getLogger(DefaultSensorService.class);
 
-
     @Override
     public List<Sensor> getSensors() {
         LOG.debug("Searching sensors...");
         var w1Devices = new W1Master().getDevices(TmpDS18B20DeviceType.FAMILY_CODE);
-        List<TemperatureSensor> list = w1Devices.stream()
+        var list = w1Devices.stream()
                 .map(i -> (TemperatureSensor) i)
                 .collect(Collectors.toList());
 

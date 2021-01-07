@@ -4,9 +4,9 @@ import com.pi4j.component.temperature.TemperatureSensor;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class DefaultSensor implements Sensor{
+public class DefaultSensor implements Sensor {
 
-    private final TemperatureSensor  sensor;
+    private final TemperatureSensor sensor;
 
     @Override
     public double getValue() {
