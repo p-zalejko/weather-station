@@ -1,6 +1,5 @@
 package com.gmail.pzalejko.weather.app;
 
-import com.gmail.pzalejko.weather.SensorService;
 import com.gmail.pzalejko.weather.SensorServiceFactory;
 import eu.hansolo.medusa.Gauge;
 import eu.hansolo.medusa.GaugeBuilder;
@@ -15,23 +14,24 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AppSensorView {
+class AppSensorView {
 
     private static final Logger LOG = LoggerFactory.getLogger(AppSensorView.class);
 
-    public static final short CHECK_INTERVAL = 10;
+    private static final short CHECK_INTERVAL = 25;
+    private static final short INITIAL_DELAY = 10;
     private static final double TILE_SIZE = 300;
     private List<TemperatureControlWrapper> widgets;
     private AppSensorService appSensorService;
 
     void init() {
-        SensorService sensorService = SensorServiceFactory.create();
-        appSensorService = new AppSensorService(CHECK_INTERVAL, sensorService);
+        var sensorService = SensorServiceFactory.create();
+        appSensorService = new AppSensorService(INITIAL_DELAY, CHECK_INTERVAL, sensorService);
         appSensorService.init();
-        List<SensorDescriptor> sensors = appSensorService.getSensors();
+        var sensors = appSensorService.getSensors();
 
         widgets = new ArrayList<>(sensors.size());
-        for (SensorDescriptor sensor : sensors) {
+        for (var sensor : sensors) {
             var digitalGauge = createGauge();
             var digitalTile = TileBuilder.create()
                     .prefSize(TILE_SIZE, TILE_SIZE)
@@ -41,13 +41,7 @@ public class AppSensorView {
                     .graphic(digitalGauge)
                     .build();
 
-            appSensorService.registerTemperatureConsumer(sensor, value -> {
-                try {
-                    digitalGauge.setValue(value);
-                } catch (Exception e) {
-                    LOG.error("Could not update temperature: {}", e.getMessage(), e);
-                }
-            });
+            appSensorService.registerTemperatureConsumer(sensor, value -> updateTemperature(digitalGauge, value));
             widgets.add(new TemperatureControlWrapper(digitalGauge, digitalTile));
         }
     }
@@ -61,6 +55,14 @@ public class AppSensorView {
         return widgets.stream()
                 .map(TemperatureControlWrapper::getDigitalTile)
                 .toArray(Node[]::new);
+    }
+
+    private void updateTemperature(Gauge digitalGauge, Double value) {
+        try {
+            digitalGauge.setValue(value);
+        } catch (Exception e) {
+            LOG.error("Could not update temperature: {}", e.getMessage(), e);
+        }
     }
 
     private Gauge createGauge() {

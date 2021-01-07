@@ -18,13 +18,14 @@ public class AppSensorService {
 
     private static final Logger LOG = LoggerFactory.getLogger(AppSensorService.class);
 
-
     private final ScheduledExecutorService executorService;
     private final short checkInterval;
+    private final short initialDelay;
     private final SensorService sensorService;
     private List<SensorDataFetcher> sensors;
 
-    public AppSensorService(short checkInterval, @NonNull SensorService sensorService) {
+    public AppSensorService(short initialDelay, short checkInterval, @NonNull SensorService sensorService) {
+        this.initialDelay = initialDelay;
         this.checkInterval = checkInterval;
         this.sensorService = sensorService;
         this.executorService = Executors.newScheduledThreadPool(1);
@@ -38,7 +39,7 @@ public class AppSensorService {
     }
 
     public void startProcessing() {
-        executorService.scheduleAtFixedRate(this::fetchNewData, checkInterval , checkInterval, TimeUnit.SECONDS);
+        executorService.scheduleAtFixedRate(this::fetchNewData, initialDelay , checkInterval, TimeUnit.SECONDS);
     }
 
     public List<SensorDescriptor> getSensors() {

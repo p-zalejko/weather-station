@@ -34,7 +34,7 @@
         <appender-ref ref="FILE-ROLLING"/>
     </logger>
 
-    <root level="error">
+    <root level="INFO">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE-ROLLING"/>
     </root>
