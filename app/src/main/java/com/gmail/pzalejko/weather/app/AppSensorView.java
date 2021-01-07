@@ -9,22 +9,30 @@ import eu.hansolo.tilesfx.TileBuilder;
 import javafx.scene.Node;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AppSensorView {
+
+    private static final Logger LOG = LoggerFactory.getLogger(AppSensorView.class);
+
+    public static final short CHECK_INTERVAL = 10;
     private static final double TILE_SIZE = 300;
     private List<TemperatureControlWrapper> widgets;
+    private AppSensorService appSensorService;
 
     void init() {
         SensorService sensorService = SensorServiceFactory.create();
-        AppSensorService appSensorService = new AppSensorService(5, sensorService);
+        appSensorService = new AppSensorService(CHECK_INTERVAL, sensorService);
         appSensorService.init();
         List<SensorDescriptor> sensors = appSensorService.getSensors();
+
         widgets = new ArrayList<>(sensors.size());
         for (SensorDescriptor sensor : sensors) {
-            var digitalGauge = createGauge(Gauge.SkinType.DIGITAL);
+            var digitalGauge = createGauge();
             var digitalTile = TileBuilder.create()
                     .prefSize(TILE_SIZE, TILE_SIZE)
                     .skinType(Tile.SkinType.CUSTOM)
@@ -33,21 +41,33 @@ public class AppSensorView {
                     .graphic(digitalGauge)
                     .build();
 
-            appSensorService.registerTemperatureConsumer(sensor, digitalGauge::setValue);
+            appSensorService.registerTemperatureConsumer(sensor, value -> {
+                try {
+                    digitalGauge.setValue(value);
+                } catch (Exception e) {
+                    LOG.error("Could not update temperature: {}", e.getMessage(), e);
+                }
+            });
             widgets.add(new TemperatureControlWrapper(digitalGauge, digitalTile));
         }
     }
 
-    Node[] getNodes() {
-        return widgets.stream().map(TemperatureControlWrapper::getDigitalTile).toArray(Node[]::new);
+    void startProcessing() {
+        LOG.info("Starting temperature monitoring");
+        appSensorService.startProcessing();
     }
 
-    private Gauge createGauge(final Gauge.SkinType TYPE) {
+    Node[] getNodes() {
+        return widgets.stream()
+                .map(TemperatureControlWrapper::getDigitalTile)
+                .toArray(Node[]::new);
+    }
+
+    private Gauge createGauge() {
         return GaugeBuilder.create()
-                .skinType(TYPE)
+                .skinType(Gauge.SkinType.DIGITAL)
                 .prefSize(TILE_SIZE, TILE_SIZE)
-                .animated(true)
-                //.title("")
+                .animated(false)
                 .unit("\u00B0C")
                 .valueColor(Tile.FOREGROUND)
                 .titleColor(Tile.FOREGROUND)
@@ -62,6 +82,7 @@ public class AppSensorView {
                 .mediumTickMarkColor(Tile.FOREGROUND)
                 .maxValue(50)
                 .minValue(-10)
+                .value(0)
                 .build();
     }
 
