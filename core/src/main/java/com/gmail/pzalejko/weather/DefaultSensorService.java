@@ -23,7 +23,7 @@ class DefaultSensorService implements SensorService {
 
         LOG.debug("Found {} sensors", list.size());
         for (var sensor : list) {
-            LOG.debug("Found sensor: {}", sensor.toString());
+            LOG.debug("Found sensor: {}, tag: {}", sensor.getName(), sensor.getTag());
         }
 
         return list.stream()
