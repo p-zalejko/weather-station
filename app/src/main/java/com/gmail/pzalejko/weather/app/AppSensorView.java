@@ -69,7 +69,7 @@ class AppSensorView {
         return GaugeBuilder.create()
                 .skinType(Gauge.SkinType.DIGITAL)
                 .prefSize(TILE_SIZE, TILE_SIZE)
-                .animated(false)
+                .animated(true)
                 .unit("\u00B0C")
                 .valueColor(Tile.FOREGROUND)
                 .titleColor(Tile.FOREGROUND)

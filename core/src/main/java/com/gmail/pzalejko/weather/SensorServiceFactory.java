@@ -6,6 +6,6 @@ import lombok.experimental.UtilityClass;
 public class SensorServiceFactory {
 
     public static SensorService create( ) {
-        return new DefaultSensorService();
+        return new MockSensorService();
     }
 }

@@ -23,19 +23,20 @@
             <version>${javafx.version}</version>
         </dependency>
         <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>eu.hansolo</groupId>
             <artifactId>tilesfx</artifactId>
-            <version>11.46</version>
+            <version>11.47</version>
         </dependency>
         <dependency>
             <groupId>eu.hansolo</groupId>
             <artifactId>Medusa</artifactId>
             <version>11.5</version>
-        </dependency>
-        <dependency>
-            <groupId>eu.hansolo</groupId>
-            <artifactId>regulators</artifactId>
-            <version>11.7</version>
         </dependency>
         <dependency>
             <groupId>com.gmail.pzalejko.weather</groupId>
