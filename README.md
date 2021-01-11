@@ -1,8 +1,9 @@
 # Weather station
 
-A simple PoC app that uses JavaFX (11) on Raspberry Pi.
+A simple PoC app that uses JavaFX (11) and Java Modules (JPMS) on Raspberry Pi. The application shows the current temperature provided by the DS18B20 temperature sensor.
 
 # Tech stack
+- [JPMS](https://openjdk.java.net/projects/jigsaw/spec/)
 - [Java 11](https://openjdk.java.net/projects/jdk/11/)
 - [JavaFX (11)](https://openjfx.io/)
 - [TilesFX](https://github.com/HanSolo/tilesfx)  
@@ -36,3 +37,7 @@ Go to the `layrrylauncher/launcher` directory and execute:
 ```
 java --module-path /home/pi/armv6hf-sdk/lib --add-modules=javafx.controls,javafx.web -jar layrry-launcher-1.0-SNAPSHOT-all.jar --layers-config layers.toml
 ```
+
+# Result
+
+![Alt text](IMG20210111231312.jpg?raw=true "")
