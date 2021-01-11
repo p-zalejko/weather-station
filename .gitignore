@@ -4,6 +4,7 @@
 .mtj.tmp/
 *.class
 *.jar
+!layrrylauncher/launcher/layrry-launcher-1.0-SNAPSHOT-all.jar
 *.war
 *.ear
 *.nar
