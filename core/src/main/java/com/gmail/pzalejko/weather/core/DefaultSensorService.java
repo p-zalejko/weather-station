@@ -12,7 +12,7 @@ class DefaultSensorService implements SensorService {
     @Override
     public List<Sensor> getSensors() {
         System.out.println("Searching sensors...");
-        var w1Devices = new W1Master().getDevices(TmpDS18B20DeviceType.FAMILY_CODE);
+        var w1Devices = new W1Master(getClass().getClassLoader()).getDevices(TmpDS18B20DeviceType.FAMILY_CODE);
         var list = w1Devices.stream()
                 .map(i -> (TemperatureSensor) i)
                 .collect(Collectors.toList());
