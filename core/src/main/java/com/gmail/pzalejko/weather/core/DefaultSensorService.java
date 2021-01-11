@@ -1,29 +1,25 @@
-package com.gmail.pzalejko.weather;
+package com.gmail.pzalejko.weather.core;
 
 import com.pi4j.component.temperature.TemperatureSensor;
 import com.pi4j.component.temperature.impl.TmpDS18B20DeviceType;
 import com.pi4j.io.w1.W1Master;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 class DefaultSensorService implements SensorService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(DefaultSensorService.class);
-
     @Override
     public List<Sensor> getSensors() {
-        LOG.debug("Searching sensors...");
+        System.out.println("Searching sensors...");
         var w1Devices = new W1Master().getDevices(TmpDS18B20DeviceType.FAMILY_CODE);
         var list = w1Devices.stream()
                 .map(i -> (TemperatureSensor) i)
                 .collect(Collectors.toList());
 
-        LOG.debug("Found {} sensors", list.size());
+        System.out.printf("Found %d sensors%n", list.size());
         for (var sensor : list) {
-            LOG.debug("Found sensor: {}, tag: {}", sensor.getName(), sensor.getTag());
+            System.out.printf("Found sensor: %s%n", sensor.getName());
         }
 
         return list.stream()

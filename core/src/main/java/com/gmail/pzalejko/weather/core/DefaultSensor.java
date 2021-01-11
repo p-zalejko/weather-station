@@ -1,4 +1,4 @@
-package com.gmail.pzalejko.weather;
+package com.gmail.pzalejko.weather.core;
 
 import com.pi4j.component.temperature.TemperatureSensor;
 import lombok.RequiredArgsConstructor;

@@ -1,13 +1,7 @@
 module pzalejko.weatherstation {
     requires static lombok;
 
-    // Java
-    requires java.base;
-    requires slf4j.api;
-
     // Java-FX
-    requires transitive javafx.base;
-    requires transitive javafx.graphics;
     requires transitive javafx.controls;
     requires transitive javafx.web;
 

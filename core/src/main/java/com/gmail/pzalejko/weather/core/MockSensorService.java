@@ -1,4 +1,4 @@
-package com.gmail.pzalejko.weather;
+package com.gmail.pzalejko.weather.core;
 
 import java.util.ArrayList;
 import java.util.List;

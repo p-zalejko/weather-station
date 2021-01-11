@@ -1,22 +1,16 @@
 package com.gmail.pzalejko.weather.app;
 
-import com.gmail.pzalejko.weather.SensorServiceFactory;
+import com.gmail.pzalejko.weather.core.SensorServiceFactory;
 import eu.hansolo.medusa.Gauge;
 import eu.hansolo.medusa.GaugeBuilder;
 import eu.hansolo.tilesfx.Tile;
 import eu.hansolo.tilesfx.TileBuilder;
 import javafx.scene.Node;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 class AppSensorView {
-
-    private static final Logger LOG = LoggerFactory.getLogger(AppSensorView.class);
 
     private static final short CHECK_INTERVAL = 25;
     private static final short INITIAL_DELAY = 10;
@@ -47,7 +41,6 @@ class AppSensorView {
     }
 
     void startProcessing() {
-        LOG.info("Starting temperature monitoring");
         appSensorService.startProcessing();
     }
 
@@ -61,7 +54,7 @@ class AppSensorView {
         try {
             digitalGauge.setValue(value);
         } catch (Exception e) {
-            LOG.error("Could not update temperature: {}", e.getMessage(), e);
+           e.printStackTrace();
         }
     }
 
@@ -88,10 +81,21 @@ class AppSensorView {
                 .build();
     }
 
-    @RequiredArgsConstructor
-    @Getter
     private static class TemperatureControlWrapper {
         private final Gauge digitalGauge;
         private final Tile digitalTile;
+
+        private TemperatureControlWrapper(Gauge digitalGauge, Tile digitalTile) {
+            this.digitalGauge = digitalGauge;
+            this.digitalTile = digitalTile;
+        }
+
+        public Gauge getDigitalGauge() {
+            return digitalGauge;
+        }
+
+        public Tile getDigitalTile() {
+            return digitalTile;
+        }
     }
 }

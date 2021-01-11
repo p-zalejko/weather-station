@@ -1,6 +1,6 @@
 package com.gmail.pzalejko.weather.app;
 
-import com.gmail.pzalejko.weather.Sensor;
+import com.gmail.pzalejko.weather.core.Sensor;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

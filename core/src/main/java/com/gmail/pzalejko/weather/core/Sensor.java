@@ -1,4 +1,4 @@
-package com.gmail.pzalejko.weather;
+package com.gmail.pzalejko.weather.core;
 
 public interface Sensor {
 

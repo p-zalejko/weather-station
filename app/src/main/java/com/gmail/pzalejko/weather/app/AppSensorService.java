@@ -1,9 +1,6 @@
 package com.gmail.pzalejko.weather.app;
 
-import com.gmail.pzalejko.weather.SensorService;
-import lombok.NonNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.gmail.pzalejko.weather.core.SensorService;
 
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -16,15 +13,13 @@ import static java.util.stream.Collectors.toList;
 
 public class AppSensorService {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AppSensorService.class);
-
     private final ScheduledExecutorService executorService;
     private final short checkInterval;
     private final short initialDelay;
     private final SensorService sensorService;
     private List<SensorDataFetcher> sensors;
 
-    public AppSensorService(short initialDelay, short checkInterval, @NonNull SensorService sensorService) {
+    public AppSensorService(short initialDelay, short checkInterval, SensorService sensorService) {
         this.initialDelay = initialDelay;
         this.checkInterval = checkInterval;
         this.sensorService = sensorService;
@@ -39,7 +34,7 @@ public class AppSensorService {
     }
 
     public void startProcessing() {
-        executorService.scheduleAtFixedRate(this::fetchNewData, initialDelay , checkInterval, TimeUnit.SECONDS);
+        executorService.scheduleAtFixedRate(this::fetchNewData, initialDelay, checkInterval, TimeUnit.SECONDS);
     }
 
     public List<SensorDescriptor> getSensors() {
@@ -49,7 +44,7 @@ public class AppSensorService {
                 .collect(toList());
     }
 
-    public void registerTemperatureConsumer(@NonNull SensorDescriptor descriptor, @NonNull Consumer<Double> consumer) {
+    public void registerTemperatureConsumer( SensorDescriptor descriptor,  Consumer<Double> consumer) {
         var sensor = sensors.stream()
                 .filter(i -> i.getSensor().getId().equals(descriptor.getId()))
                 .findFirst()
@@ -59,7 +54,6 @@ public class AppSensorService {
     }
 
     private void fetchNewData() {
-        LOG.debug("Updating temperature...");
         sensors.forEach(SensorDataFetcher::fetchData);
     }
 }
