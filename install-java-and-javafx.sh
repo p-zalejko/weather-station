@@ -15,5 +15,3 @@ cd /home/pi
 wget -O javafx.zip https://gluonhq.com/download/javafx-11-0-2-sdk-armv6hf/
 unzip javafx.zip
 rm javafx.zip
-
-wget https://github.com/p-zalejko/weather-station/releases/download/0.0.1/app-1.0-SNAPSHOT-jar-with-dependencies.jar
