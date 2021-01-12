@@ -1,6 +1,6 @@
 # Weather station
 
-A simple PoC app that uses JavaFX (11) and Java Modules (JPMS) on Raspberry Pi. The application shows the current temperature provided by the DS18B20 temperature sensor.
+A simple PoC app that uses JavaFX (11) and Java Modules (JPMS).
 
 # Tech stack
 - [JPMS](https://openjdk.java.net/projects/jigsaw/spec/)

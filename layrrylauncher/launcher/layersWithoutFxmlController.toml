@@ -2,14 +2,8 @@
     modules = [
         "eu.hansolo:Medusa:11.5",
         "eu.hansolo:tilesfx:11.47"]
-[layers.hardwareDeps]
-    modules = [
-        "com.pi4j:pi4j-core:1.2",
-        "com.pi4j:pi4j-device:1.2",
-        "com.pi4j:pi4j-gpio-extension:1.2",
-        "com.gmail.pzalejko.weather:core:1.0-SNAPSHOT"]
 [layers.app]
-    parents = ["javafxDeps", "hardwareDeps"]
+    parents = ["javafxDeps"]
     modules = ["com.gmail.pzalejko.weather:app:1.0-SNAPSHOT"]
 [main]
     module = "pzalejko.weatherstation"

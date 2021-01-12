@@ -1,0 +1,10 @@
+[layers.javafxDeps]
+    modules = [
+        "eu.hansolo:Medusa:11.5",
+        "eu.hansolo:tilesfx:11.47"]
+[layers.app]
+    parents = ["javafxDeps"]
+    modules = ["com.gmail.pzalejko.weather:app:1.0-SNAPSHOT"]
+[main]
+    module = "pzalejko.weatherstation"
+    class = "com.gmail.pzalejko.weather.app.AppWithController"

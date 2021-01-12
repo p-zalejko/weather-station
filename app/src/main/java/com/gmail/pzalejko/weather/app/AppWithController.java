@@ -3,21 +3,19 @@ package com.gmail.pzalejko.weather.app;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.*;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.net.URL;
 
-public class App extends Application {
+public class AppWithController extends Application {
 
     @Override
     public void start(Stage stage) {
         try {
-            URL location = getClass().getResource("hello.fxml");
+            URL location = getClass().getResource("hello-with-controller.fxml");
             FXMLLoader fxmlLoader = new FXMLLoader(location);
             VBox box = fxmlLoader.load();
-
-            AppUiInitializer.init((Pane) box.getChildren().get(1));
 
             Scene scene = new Scene(box);
             stage.setTitle("Hello");
@@ -38,7 +36,7 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        Application.launch(App.class, args);
+        Application.launch(AppWithController.class, args);
     }
 
 
