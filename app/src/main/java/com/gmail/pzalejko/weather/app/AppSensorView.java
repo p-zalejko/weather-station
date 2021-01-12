@@ -13,8 +13,9 @@ import java.util.List;
 class AppSensorView {
 
     private static final short CHECK_INTERVAL = 25;
-    private static final short INITIAL_DELAY = 10;
+    private static final short INITIAL_DELAY = 5;
     private static final double TILE_SIZE = 300;
+
     private List<TemperatureControlWrapper> widgets;
     private AppSensorService appSensorService;
 
@@ -54,7 +55,7 @@ class AppSensorView {
         try {
             digitalGauge.setValue(value);
         } catch (Exception e) {
-           e.printStackTrace();
+            e.printStackTrace();
         }
     }
 
@@ -90,11 +91,11 @@ class AppSensorView {
             this.digitalTile = digitalTile;
         }
 
-        public Gauge getDigitalGauge() {
+        Gauge getDigitalGauge() {
             return digitalGauge;
         }
 
-        public Tile getDigitalTile() {
+        Tile getDigitalTile() {
             return digitalTile;
         }
     }

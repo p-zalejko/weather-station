@@ -4,7 +4,7 @@ public class SensorServiceFactory {
 
     public static SensorService create() {
         String underTest = System.getenv("underTest");
-        if (underTest != null && Boolean.getBoolean(underTest)) {
+        if (Boolean.parseBoolean(underTest)) {
             return new MockSensorService();
         }
         return new DefaultSensorService();

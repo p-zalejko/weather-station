@@ -44,7 +44,7 @@ public class AppSensorService {
                 .collect(toList());
     }
 
-    public void registerTemperatureConsumer( SensorDescriptor descriptor,  Consumer<Double> consumer) {
+    public void registerTemperatureConsumer(SensorDescriptor descriptor, Consumer<Double> consumer) {
         var sensor = sensors.stream()
                 .filter(i -> i.getSensor().getId().equals(descriptor.getId()))
                 .findFirst()

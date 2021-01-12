@@ -1,30 +1,34 @@
 package com.gmail.pzalejko.weather.core;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
+/**
+ * A "simulator" of the sensor service - provides dummy implementation that can be used on devices without any sensors
+ * (mainly for development purposes).
+ */
 class MockSensorService implements SensorService {
 
     @Override
     public List<Sensor> getSensors() {
-        List<Sensor> sensors = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            final  int ii = i;
-            sensors.add(
-                    new Sensor() {
-                        @Override
-                        public double getValue() {
-                            return new Random().nextDouble() * 100;
-                        }
+        return IntStream.range(0, 3)
+                .mapToObj(this::createSensor)
+                .collect(Collectors.toUnmodifiableList());
+    }
 
-                        @Override
-                        public String getId() {
-                            return "" + ii;
-                        }
-                    }
-            );
-        }
-        return sensors;
+    private Sensor createSensor(final int i) {
+        return new Sensor() {
+            @Override
+            public double getValue() {
+                return new Random().nextDouble() * 100;
+            }
+
+            @Override
+            public String getId() {
+                return Integer.toString(i);
+            }
+        };
     }
 }
