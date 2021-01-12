@@ -27,13 +27,14 @@ mvn clean install
 
 As a [Java modular application](https://www.oracle.com/corporate/features/understanding-java-9-modules.html):
 
+Go to `<project-location>/app/target` directory and execute:
 ```
 java --module-path /home/pi/armv6hf-sdk/lib --add-modules=javafx.controls,javafx.web -jar /home/pi/app-1.0-SNAPSHOT-jar-with-dependencies.jar
 ```
 
 Using  [layrry](https://github.com/moditect/layrry):
 
-Go to the `layrrylauncher/launcher` directory and execute:
+Go to the `<project-location>/layrrylauncher/launcher` directory and execute:
 ```
 java --module-path /home/pi/armv6hf-sdk/lib --add-modules=javafx.controls,javafx.web -jar layrry-launcher-1.0-SNAPSHOT-all.jar --layers-config layers.toml
 ```
