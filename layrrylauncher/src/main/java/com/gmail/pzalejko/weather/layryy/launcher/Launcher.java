@@ -25,7 +25,7 @@ public class Launcher {
     }
 
     /**
-     * If you have JDE that contains JavaFX then JavaFX modules does not have to be included in the configuration.
+     * If you have JDK that contains JavaFX then JavaFX modules does not have to be included in the configuration.
      * <p>
      * You can download JDK+JavaFX from this page: https://www.azul.com/downloads/zulu-community/?version=java-15-mts&package=jdk-fx
      */
