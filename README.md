@@ -2,8 +2,8 @@
 
 This branch contains a PoC JavaFX application that can be launched via layryy. There are two Java main classes:
 
-- one (`com.gmail.pzalejko.weather.app.AppWithController`) that uses FXML file and an associated controller
-- the second (`com.gmail.pzalejko.weather.app.App`) that uses FXML without controller class
+- one (`com.gmail.pzalejko.weather.app.AppWithController`) that uses FXML file with an associated controller
+- the second (`com.gmail.pzalejko.weather.app.App`) that uses FXML without the controller class
 
 # How to use FXML files and layrry
 
@@ -31,7 +31,7 @@ mvn clean install
 
 # How to launch
 
-Go to the <project-location>/layrrylauncher/launcher directory and execute:
+Go to the `<project-location>/layrrylauncher/launcher` directory and execute:
 
 ```
 ./run-layrry-with-fxml-controller.sh
