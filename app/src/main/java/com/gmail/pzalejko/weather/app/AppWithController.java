@@ -15,6 +15,7 @@ public class AppWithController extends Application {
         try {
             URL location = getClass().getResource("hello-with-controller.fxml");
             FXMLLoader fxmlLoader = new FXMLLoader(location);
+            fxmlLoader.setClassLoader(getClass().getClassLoader());
             VBox box = fxmlLoader.load();
 
             Scene scene = new Scene(box);

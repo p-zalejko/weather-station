@@ -1,7 +1,11 @@
 [layers.javafxDeps]
     modules = [
-        "eu.hansolo:Medusa:11.5",
-        "eu.hansolo:tilesfx:11.47"]
+        "org.openjfx:javafx-base:jar:{{os.detected.jfxname}}:11",
+        "org.openjfx:javafx-controls:jar:{{os.detected.jfxname}}:11",
+        "org.openjfx:javafx-graphics:jar:{{os.detected.jfxname}}:11",
+        "org.openjfx:javafx-web:jar:{{os.detected.jfxname}}:11",
+        "org.openjfx:javafx-media:jar:{{os.detected.jfxname}}:11",
+        "org.openjfx:javafx-fxml:jar:{{os.detected.jfxname}}:11"]
 [layers.app]
     parents = ["javafxDeps"]
     modules = ["com.gmail.pzalejko.weather:app:1.0-SNAPSHOT"]

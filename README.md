@@ -1,44 +1,50 @@
-# Weather station
+# Layrry and JavaFX 
 
-A simple PoC app that uses JavaFX (11) and Java Modules (JPMS).
+This branch contains a PoC JavaFX application that can be launched via layryy. There are two Java main classes:
+- one (`com.gmail.pzalejko.weather.app.AppWithController`) that uses FXML file and an associated controller
+- the second (`com.gmail.pzalejko.weather.app.App`) that uses FXML without controller class
 
-# Tech stack
-- [JPMS](https://openjdk.java.net/projects/jigsaw/spec/)
-- [Java 11](https://openjdk.java.net/projects/jdk/11/)
-- [JavaFX (11)](https://openjfx.io/)
-- [TilesFX](https://github.com/HanSolo/tilesfx)  
-- [Pi4J](https://pi4j.com/1.2/index.html)
-- [Layryy](https://github.com/moditect/layrry)
+# How to use FXML files and layrry
 
-# JavaFX Installation
+## When JRE contains JavaFX
+In case your JDK/JRE contains JavaFX (e.g. https://www.azul.com/downloads/zulu-community/?version=java-15-mts&package=jdk-fx ) then working with JavaFX is much simpler. You do not have to include JavaFX modules in layryy configuration files. You even do not have to pass a classLoader to the FXMLLoader instance.
 
-In order to launch a JavaFX application, Java and JavaFX must be installed. See
-the [installation script](install-java-and-javafx.sh).
+``` 
+            URL location = getClass().getResource("...");
+            FXMLLoader fxmlLoader = new FXMLLoader(location);
+            VBox box = fxmlLoader.load();
+```
 
-# How to build
-It is important to `install` artifacts in the local maven repository. These artifacts will be used for launching the app using e.g. layryy:
+## When JRE does not provide JavaFX
 
+In order to let FXMLLoader load and construct a content of the FXML file it must be configured to use the same class loader that is associated with the main class.
+
+It can be done in the following way:
+
+``` 
+            URL location = getClass().getResource("...");
+            FXMLLoader fxmlLoader = new FXMLLoader(location);
+            fxmlLoader.setClassLoader(getClass().getClassLoader());  // <!-- provide the class loader
+            VBox box = fxmlLoader.load();
+```
+
+#How to build
+It is important to install artifacts in the local maven repository:
 
 ``
 mvn clean install
 ``
 
-# How to launch on Raspberry Pi
+#How to launch
 
-As a [Java modular application](https://www.oracle.com/corporate/features/understanding-java-9-modules.html):
+Go to the <project-location>/layrrylauncher/launcher directory and execute:
 
-Go to `<project-location>/app/target` directory and execute:
 ```
-java --module-path /home/pi/armv6hf-sdk/lib --add-modules=javafx.controls,javafx.web -jar /home/pi/app-1.0-SNAPSHOT-jar-with-dependencies.jar
-```
-
-Using  [layrry](https://github.com/moditect/layrry):
-
-Go to the `<project-location>/layrrylauncher/launcher` directory and execute:
-```
-java --module-path /home/pi/armv6hf-sdk/lib --add-modules=javafx.controls,javafx.web -jar layrry-launcher-1.0-SNAPSHOT-all.jar --layers-config layers.toml
+./run-layrry-with-fxml-controller.sh
 ```
 
-# Result
+OR
 
-![Alt text](IMG20210111231312.jpg?raw=true "")
+```
+./run-layrry-without-fxml-controller.sh
+```

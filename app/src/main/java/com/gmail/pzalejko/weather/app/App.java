@@ -15,6 +15,7 @@ public class App extends Application {
         try {
             URL location = getClass().getResource("hello.fxml");
             FXMLLoader fxmlLoader = new FXMLLoader(location);
+            fxmlLoader.setClassLoader(getClass().getClassLoader());
             VBox box = fxmlLoader.load();
 
             AppUiInitializer.init((Pane) box.getChildren().get(1));
